@@ -25,6 +25,8 @@ def _setup_blueprints(application):
 
 def _setup_db(application, db_uri):
     engine = create_engine(db_uri)
+    from .apps.todo_task.repositories import TaskRepository
+    from .apps.todo_list.repositories import ListRepository
     Base.metadata.create_all(engine)
 
     @application.before_request
