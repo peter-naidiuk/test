@@ -1,0 +1,10 @@
+Click
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+marshmallow
+SQLAlchemy
+Werkzeug
+pip-tools
+gunicorn
