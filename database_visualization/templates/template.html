@@ -1,0 +1,58 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <style type="text/css">
+        #mynetwork {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+    // create an array with nodes
+    var nodes = new vis.DataSet([
+        {% for data_obj in data %}
+        {id: {{ data_obj.id }}, label: "{{ data_obj.label }}", title: "{{data_obj.columns}}"},
+        {% endfor %}
+    ]);
+
+    // create an array with edges
+    var edges = new vis.DataSet([
+        {% for edge in edges %}
+            {from: {{ edge.from }}, to: {{ edge.to }} },
+        {% endfor %}
+    ]);
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+
+    // provide the data in the vis format
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {
+        autoResize: true,
+        height: '100%',
+        width: '100%',
+        locale: 'en',
+        clickToUse: false,
+        // configure: {...},    // defined in the configure module.
+        edges: {arrows: "from", color: "#000"},        // defined in the edges module.
+        nodes: {shape: "box", shapeProperties: {borderRadius: 0}, size: 50},        // defined in the nodes module.
+        // groups: {...},       // defined in the groups module.
+        // layout: {...},       // defined in the layout module.
+        // interaction: {...},  // defined in the interaction module.
+        // manipulation: {...}, // defined in the manipulation module.
+        physics: {enabled: false},      // defined in the physics module.
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+</script>
+</body>
+</html>
